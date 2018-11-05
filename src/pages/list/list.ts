@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import {CustomerService} from "../../services/customer.service";
-import {CustomerDTO} from "../../models/customer.dto";
+import { CustomerDTO } from "../../models/customer.dto";
+import { CustomerService } from "../../services/customer.service";
 
 @Component({
   selector: 'page-list',
@@ -18,13 +17,13 @@ export class ListPage {
 
   initializeItems() {
     this.customerService.findAll()
-            .subscribe(response => {
-                    this.items = response;
-                },
-                error => {
-                    // TODO tratar erros
-                    console.log(error);
-                });
+      .subscribe(response => {
+        this.items = response;
+      },
+        error => {
+          // TODO tratar erros
+          console.log(error);
+        });
   }
 
   getItems(ev: any) {

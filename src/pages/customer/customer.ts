@@ -1,37 +1,32 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { take } from "rxjs/operators";
+import { CustomerDTO } from '../../models/customer.dto';
+import { CustomerService } from '../../services/customer.service';
+import { CustomerDetailsPage } from '../customer-details/customer-details';
 
 @Component({
   selector: 'page-customer',
   templateUrl: 'customer.html'
 })
 export class CustomerPage {
-  selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  customers: CustomerDTO[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
-
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private customerService: CustomerService) {
   }
 
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(OrderPage, {
-      item: item
+  ionViewDidLoad(): void {
+    this.customerService.findAll()
+      .pipe(take(1))
+      .subscribe(customers => this.customers = customers);
+
+  }
+
+  itemTapped(event, customer) {
+    this.navCtrl.push(CustomerDetailsPage, {
+      customer
     });
   }
 }

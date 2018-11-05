@@ -1,8 +1,7 @@
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {API_CONFIG} from "../config/api.config";
-import {Observable} from "rxjs/Observable";
-import {Injectable} from "@angular/core";
-import {OrderDTO} from "../models/order.dto";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { API_CONFIG } from "../config/api.config";
+import { OrderDTO } from "../models/order.dto";
 
 @Injectable()
 export class OrderService {
